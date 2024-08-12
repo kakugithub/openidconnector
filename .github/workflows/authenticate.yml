@@ -30,3 +30,9 @@ jobs:
           aws-region: ${{ inputs.aws-region }}
       - name: validate Hostname
         run: hostname
+      - name: set the value
+        run: |
+          echo "aws-access-key-id = ${{ steps.configure.outputs.aws-access-key-id }}" >> "$GITHUB_ENV"
+          echo "aws-secret-access-key = ${{ steps.configure.outputs.aws-secret-access-key }}" >> "$GITHUB_ENV"
+          echo "$GITHUB_ENV"
+              

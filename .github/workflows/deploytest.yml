@@ -15,9 +15,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Print AWS SSM Parameter
         run: aws ssm get-parameter --name=hello_test --query Parameter.Value
-
-        - name: Print assumed role
+      - name: Print assumed role
         run: aws sts get-caller-identity

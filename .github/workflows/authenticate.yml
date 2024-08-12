@@ -40,3 +40,4 @@ jobs:
           echo "AWS_ACCESS_KEY_ID=${{ steps.configure.outputs.aws-access-key-id }}" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=${{ steps.configure.outputs.aws-secret-access-key }}" >> $GITHUB_ENV
           echo "AWS_SESSION_TOKEN=${{ steps.configure.outputs.aws-session-token }}" >> $GITHUB_ENV
+          sleep 120s

@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   authenticate:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       aws-access-key-id: ${{ steps.configure.outputs.aws-access-key-id }}
       aws-secret-access-key: ${{ steps.configure.outputs.aws-secret-access-key }}

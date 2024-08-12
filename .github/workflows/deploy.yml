@@ -28,6 +28,9 @@ jobs:
             echo "File not found: my-app.txt"
             exit 1
           fi
+      - name: check the hostname
+        run: hostname
+      
       - name: Deploy application
         run: |
           set -x

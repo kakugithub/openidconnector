@@ -26,6 +26,12 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
+      - name: Verify AWS Credentials
+        run: |
+          echo "Checking AWS Credentials:"
+          echo "AWS Access Key ID: ${#AWS_ACCESS_KEY_ID} characters long"
+          echo "AWS Secret Access Key: ${#AWS_SECRET_ACCESS_KEY} characters long"
+          echo "AWS Session Token: ${#AWS_SESSION_TOKEN} characters long"
       - name: Very file present
         run: |
           if [ ! -f "my-app.txt" ]; then

@@ -8,7 +8,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   authenticate:
     uses: kakugithub/openidconnector/.github/workflows/authenticate.yml@main
@@ -19,18 +19,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: authenticate
+    environment:
+      AWS_ACCESS_KEY_ID: ${{ needs.authenticate.outputs.aws-access-key-id }}
+      AWS_SECRET_ACCESS_KEY: ${{ needs.authenticate.outputs.aws-secret-access-key }}
+      AWS_SESSION_TOKEN: ${{ needs.authenticate.outputs.aws-session-token }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+		
       - name: Very file present
         run: |
           if [ ! -f "my-app.txt" ]; then
             echo "File not found: my-app.txt"
             exit 1
-          fi
+          fi		
+		  
       - name: check the hostname
         run: hostname
-      
+		
       - name: Deploy application
         run: |
           set -x

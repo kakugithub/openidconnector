@@ -39,4 +39,6 @@ jobs:
           echo "AWS Access Key ID: ${#AWS_ACCESS_KEY_ID} characters long"
           echo "AWS Secret Access Key: ${#AWS_SECRET_ACCESS_KEY} characters long"
           echo "AWS Session Token: ${#AWS_SESSION_TOKEN} characters long"
+          echo "AWS Access Key ID: ${AWS_ACCESS_KEY}"
+          echo "AWS Access Key ID: ${#AWS_ACCESS_KEY}"
               

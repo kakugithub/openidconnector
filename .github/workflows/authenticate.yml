@@ -40,4 +40,9 @@ jobs:
           echo "AWS_ACCESS_KEY_ID=${{ steps.configure.outputs.aws-access-key-id }}" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=${{ steps.configure.outputs.aws-secret-access-key }}" >> $GITHUB_ENV
           echo "AWS_SESSION_TOKEN=${{ steps.configure.outputs.aws-session-token }}" >> $GITHUB_ENV
-          sleep 120s
+      - name: Save Environment Variables to Local File
+        run: |
+          # Save to a local .env file
+          echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> /home/ubuntu/.bash_profile
+          echo "AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}" >> /home/ubuntu/.bash_profile
+          echo "AWS_SESSION_TOKEN=${{ env.AWS_SESSION_TOKEN }}" >> /home/ubuntu/.bash_profile

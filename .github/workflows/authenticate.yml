@@ -1,4 +1,4 @@
-name: Authenticate with AWS
+name: Authenticate with AWS S
 
 on:
   workflow_call:

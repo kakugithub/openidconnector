@@ -22,10 +22,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Very file present
         run: |
-          if [ ! -f "my-asdssdpp.txt" ]; then
+          if [ ! -f "my-app.txt" ]; then
             echo "File not found: my-app.txt"
             exit 1
           fi
       - name: Deploy application
         run: |
-          aws s3 cp my-app.txt s3://demokarthik06/
+          set -x
+          aws s3 cp my-app.txt s3://demokarthik06/ || { echo 'S3 upload failed'; exit 1; }
+        shell: bash

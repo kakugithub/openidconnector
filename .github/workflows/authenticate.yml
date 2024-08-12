@@ -10,26 +10,23 @@ on:
         required: true
         type: string
 
-#permissions:
-#  id-token: write
-#  contents: read
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   authenticate:
     runs-on: ubuntu-latest
     outputs:
-      aws-role: ${{ steps.configure-aws.outputs.role }}
-
+      aws-access-key-id: ${{ steps.configure.outputs.aws-access-key-id }}
+      aws-secret-access-key: ${{ steps.configure.outputs.aws-secret-access-key }}
+      aws-session-token: ${{ steps.configure.outputs.aws-session-token }}
     steps:
       - name: Configure AWS credentials
-        id: configure-aws
+        id: configure
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ inputs.role-to-assume }}
           aws-region: ${{ inputs.aws-region }}
-          
-      - name: shell cmd
+      - name: validate Hostname
         run: hostname
-        
-      - name: shell cmd
-        run: aws s3 ls 

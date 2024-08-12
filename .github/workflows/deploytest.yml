@@ -1,0 +1,23 @@
+name: Deploy test to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    uses: kakugithub/openidconnector/.github/workflows/authenticate.yml@main
+    with:
+      aws-region: eu-west-3
+      role-to-assume: arn:aws:iam::499756076901:role/GitHub_AWS_Role
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print AWS SSM Parameter
+        run: aws ssm get-parameter --name=hello_test --query Parameter.Value
+
+      - name: Print assumed role
+        run: aws sts get-caller-identity

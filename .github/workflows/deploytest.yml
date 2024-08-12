@@ -1,4 +1,4 @@
-name: Deploy test to AWS
+name: Deploy to AWS
 
 on:
   push:
@@ -19,5 +19,5 @@ jobs:
       - name: Print AWS SSM Parameter
         run: aws ssm get-parameter --name=hello_test --query Parameter.Value
 
-      - name: Print assumed role
+        - name: Print assumed role
         run: aws sts get-caller-identity

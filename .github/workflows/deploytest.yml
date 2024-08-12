@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Very file present
         run: |
-          if [ ! -f "my-app.txt" ]; then
+          if [ ! -f "my-asdssdpp.txt" ]; then
             echo "File not found: my-app.txt"
             exit 1
           fi

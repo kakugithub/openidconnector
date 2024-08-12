@@ -35,8 +35,4 @@ jobs:
           echo "AWS Access Key ID Length in authenticate.yml: ${#AWS_ACCESS_KEY_ID}"
           echo "AWS Secret Access Key Length in authenticate.yml: ${#AWS_SECRET_ACCESS_KEY}"
           echo "AWS Session Token Length in authenticate.yml: ${#AWS_SESSION_TOKEN}"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ steps.configure.outputs.aws-access-key-id }}
-          AWS_SECRET_ACCESS_KEY: ${{ steps.configure.outputs.aws-secret-access-key }}
-          AWS_SESSION_TOKEN: ${{ steps.configure.outputs.aws-session-token }}
               

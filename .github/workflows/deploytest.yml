@@ -22,4 +22,5 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy application
-        run: aws ssm get-parameter --name=hello_test --query Parameter.Value
+        run: |
+          aws s3 cp my-app.txt s3://demokarthik06/

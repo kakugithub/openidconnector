@@ -24,24 +24,16 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ needs.authenticate.outputs.aws-secret-access-key }}
       AWS_SESSION_TOKEN: ${{ needs.authenticate.outputs.aws-session-token }}
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Verify AWS Credentials
         run: |
           echo "Checking AWS Credentials:"
           echo "AWS Access Key ID: ${#AWS_ACCESS_KEY_ID} characters long"
           echo "AWS Secret Access Key: ${#AWS_SECRET_ACCESS_KEY} characters long"
           echo "AWS Session Token: ${#AWS_SESSION_TOKEN} characters long"
-      - name: Very file present
+
+      - name: Upload to S3
         run: |
-          if [ ! -f "my-app.txt" ]; then
-            echo "File not found: my-app.txt"
-            exit 1
-          fi		 
-      - name: check the hostname
-        run: hostname
-      - name: Deploy application
-        run: |
-          set -x
-          aws s3 cp my-app.txt s3://demokarthik06/ --region eu-west-3 || { echo 'S3 upload failed'; exit 1; }
-        shell: bash
+          aws s3 cp my-app.txt s3://demokarthik06/

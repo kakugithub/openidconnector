@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   authenticate:
     uses: kakugithub/openidconnector/.github/workflows/authenticate.yml@main

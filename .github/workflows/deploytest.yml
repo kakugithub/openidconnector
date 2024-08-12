@@ -29,5 +29,5 @@ jobs:
       - name: Deploy application
         run: |
           set -x
-          aws s3 cp my-app.txt s3://demokarthik06 || { echo 'S3 upload failed'; exit 1; }
+          aws s3 cp my-app.txt s3://demokarthik06/ --region eu-west-3 || { echo 'S3 upload failed'; exit 1; }
         shell: bash

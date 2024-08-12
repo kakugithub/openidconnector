@@ -19,7 +19,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: authenticate
-    environment:
+    env:
       AWS_ACCESS_KEY_ID: ${{ needs.authenticate.outputs.aws-access-key-id }}
       AWS_SECRET_ACCESS_KEY: ${{ needs.authenticate.outputs.aws-secret-access-key }}
       AWS_SESSION_TOKEN: ${{ needs.authenticate.outputs.aws-session-token }}

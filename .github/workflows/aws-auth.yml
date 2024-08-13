@@ -18,8 +18,8 @@ jobs:
 
     - id: set-outputs
       run: |
-        echo "aws-access-key-id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-        echo "aws-secret-access-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "AWS Access Key ID: ${{ steps.configure-aws.outputs.aws-access-key-id }}"
+        echo "AWS Secret Access Key: ${{ steps.configure-aws.outputs.aws-secret-access-key }}"
 
 outputs:
   aws-access-key-id:

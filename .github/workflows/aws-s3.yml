@@ -1,9 +1,7 @@
 name: AWS S3 Activity
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
 
 jobs:
   list-s3-contents:

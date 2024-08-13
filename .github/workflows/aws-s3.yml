@@ -10,17 +10,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
-    - name: List directory contents
-      run: ls -R .github/workflows/
 
-    - name: Authenticate with AWS
-      uses: ./.github/workflows/aws-auth.yml@auth-develop
+    - name: Configure AWS credentials
+      id: configure-aws
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: List S3 Buckets
+    - name: Use AWS credentials
       run: |
         aws s3 ls
-
-    - name: List Contents of a Specific S3 Bucket
-      run: |
-        aws s3 ls s3://demokarthik06/
+        # Access outputs from the configure-aws step
+        echo "AWS Access Key ID: ${{ steps.configure-aws.outputs.aws-access-key-id }}"
+        echo "AWS Secret Access Key: ${{ steps.configure-aws.outputs.aws-secret-access-key }}"

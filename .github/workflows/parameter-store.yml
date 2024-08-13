@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  list-s3-contents:
+  aws-parameter-store:
     runs-on: ubuntu-latest
 
     steps:

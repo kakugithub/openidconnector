@@ -10,6 +10,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
+    - name: List directory contents
+      run: ls -R .github/workflows/
 
     - name: Authenticate with AWS
       uses: ./.github/workflows/aws-auth.yml@auth-develop

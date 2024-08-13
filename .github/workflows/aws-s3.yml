@@ -23,5 +23,5 @@ jobs:
       run: |
         aws s3 ls
         # Access outputs from the configure-aws step
-        echo "AWS Access Key ID: ${{ steps.configure-aws.outputs.aws-access-key-id }}"
-        echo "AWS Secret Access Key: ${{ steps.configure-aws.outputs.aws-secret-access-key }}"
+        echo "AWS Access Key ID: ${{ needs.configure-aws.outputs.aws-access-key-id }}"
+        echo "AWS Secret Access Key: ${{ needs.configure-aws.outputs.aws-secret-access-key }}"

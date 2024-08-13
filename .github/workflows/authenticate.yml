@@ -1,48 +1,29 @@
-name: Authenticate with AWS S
+name: AWS S3 Activity
 
 on:
-  workflow_call:
-    inputs:
-      aws-region:
-        required: true
-        type: string
-      role-to-assume:
-        required: true
-        type: string
-
-permissions:
-  id-token: write
-  contents: read
+  push:
+    branches:
+      - develop
 
 jobs:
-  authenticate:
+  list-s3-contents:
     runs-on: ubuntu-latest
-    outputs:
-      aws-access-key-id: ${{ steps.configure.outputs.aws-access-key-id }}
-      aws-secret-access-key: ${{ steps.configure.outputs.aws-secret-access-key }}
-      aws-session-token: ${{ steps.configure.outputs.aws-session-token }}
+
     steps:
-      - name: Configure AWS credentials
-        id: configure
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ inputs.role-to-assume }}
-          aws-region: ${{ inputs.aws-region }}
-      - name: validate Hostname
-        run: hostname
-      - name: Verify AWS Credentials in authenticate.yml
-        run: |
-          echo "AWS Access Key ID Length in authenticate.yml: ${#AWS_ACCESS_KEY_ID}"
-          echo "AWS Secret Access Key Length in authenticate.yml: ${#AWS_SECRET_ACCESS_KEY}"
-          echo "AWS Session Token Length in authenticate.yml: ${#AWS_SESSION_TOKEN}"
-      - name: Export AWS Credentials
-        run: |
-          echo "AWS_ACCESS_KEY_ID=${{ steps.configure.outputs.aws-access-key-id }}" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=${{ steps.configure.outputs.aws-secret-access-key }}" >> $GITHUB_ENV
-          echo "AWS_SESSION_TOKEN=${{ steps.configure.outputs.aws-session-token }}" >> $GITHUB_ENV
-      - name: Save Environment Variables to Local File
-        run: |
-          # Save to a local .env file
-          echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> /home/ubuntu/.bash_profile
-          echo "AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}" >> /home/ubuntu/.bash_profile
-          echo "AWS_SESSION_TOKEN=${{ env.AWS_SESSION_TOKEN }}" >> /home/ubuntu/.bash_profile
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: List S3 Buckets
+      run: |
+        aws s3 ls
+
+    - name: List Contents of a Specific S3 Bucket
+      run: |
+        aws s3 ls s3://demokarthik06/

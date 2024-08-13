@@ -8,9 +8,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Configure AWS credentials
+    - id: configure-aws
+      name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
+
+    - id: set-outputs
+      run: |
+        echo "aws-access-key-id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+        echo "aws-secret-access-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+
+outputs:
+  aws-access-key-id:
+    description: 'AWS Access Key ID'
+    value: ${{ steps.set-outputs.outputs.aws-access-key-id }}
+  aws-secret-access-key:
+    description: 'AWS Secret Access Key'
+    value: ${{ steps.set-outputs.outputs.aws-secret-access-key }}
